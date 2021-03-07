@@ -1,13 +1,19 @@
-import React from "react";
-import Home from "./Home"
-import About from "./About"
-import Admin from "./Admin"
-import Signin from "./Signin"
-import Signup from "./Signup"
-import Logout from "./Logout"
+import React, { useState } from "react";
+import Home from "./Home";
+import About from "./About";
+import Admin from "./Admin";
+import Signin from "./Signin";
+import Signup from "./Signup";
+import Logout from "./Logout";
 import { Link, Route, Switch } from "react-router-dom";
+import CompanyContext from "./contexts/CompanyContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const App = () => {
+  const [infos, setInfos] = useState({
+    name: "Bwok",
+    numCustomers: 10000,
+  });
 
   return (
     <div>
@@ -29,16 +35,19 @@ const App = () => {
         </li>
       </ul>
       <Switch>
+        <CompanyContext.Provider value={{ infos, setInfos }}>
+          <AuthProvider>
             <Route path="/about" component={About} />
             <Route path="/admin" component={Admin} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/" component={Home} />
+          </AuthProvider>
+        </CompanyContext.Provider>
       </Switch>
       {true && <Logout />}
     </div>
   );
 };
-
 
 export default App;

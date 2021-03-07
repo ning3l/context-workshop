@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from "react";
+import CompanyContext from "./contexts/CompanyContext";
 
 const Welcome = () => {
-    return ( 
-        <>
-        <p>Welcome to Bwok! 10000 customers served daily!</p>
-        </>
-     );
-}
- 
+  const infos = useContext(CompanyContext);
+
+  return (
+    <>
+      <p>
+        Welcome to {infos.name}! {infos.numCustomers} customers served daily!
+      </p>
+    </>
+  );
+};
+
 export default Welcome;

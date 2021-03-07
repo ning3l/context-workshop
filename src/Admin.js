@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Welcome from "./Welcome";
+import CompanyContext from "./contexts/CompanyContext";
 
 const Admin = () => {
+  const { setInfos } = useContext(CompanyContext);
+  const [newCustomNum, setNewCustomNum] = useState();
+
+  const handleChange = (e) => {
+    setNewCustomNum(e.target.value);
+  };
+
+  const handleUpdate = () => {
+    setInfos((prev) => ({
+      ...prev,
+      numCustomers: newCustomNum,
+    }));
+  };
+
   return (
     <>
       <h3>Company name</h3>
@@ -11,19 +26,8 @@ const Admin = () => {
       <Welcome />
       <br />
       <div>Lots of important secret stuff...</div>
-      {/* <input
-        value={newCustomerValue}
-        onChange={(e) => setNewCustomerValue(e.target.value)}
-        placeholder="Daily customers"
-        type="text"
-      /> */}
-      {/* <button
-        onClick={(e) => {
-          setCompanyData({ ...companyData, customers: newCustomerValue });
-        }}
-      >
-        Save
-      </button> */}
+      <input type="number" onChange={handleChange} />
+      <button onClick={handleUpdate}>update</button>
     </>
   );
 };
