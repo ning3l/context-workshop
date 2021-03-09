@@ -26,7 +26,7 @@ const Admin = () => {
       <Welcome />
       <br />
       <div>Lots of important secret stuff...</div>
-      <input type="number" onChange={handleChange} />
+      <input type="text" onChange={handleChange} />
       <button onClick={handleUpdate}>update</button>
     </>
   );

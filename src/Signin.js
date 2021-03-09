@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useAuth } from "./contexts/AuthContext";
 
 const Signin = () => {
-  const { isToken } = useAuth();
-  console.log("value", isToken);
+  const { isToken, setIsToken } = useAuth();
+  const history = useHistory();
 
   const [loginData, setLoginData] = useState({
     username: "",
@@ -21,20 +21,18 @@ const Signin = () => {
     }));
   };
 
+  // admin test credentials = ben | chicken
   const login = () => {
-    console.log("logging in", loginData);
-    console.log(isToken);
+    console.log("logging user in...", loginData);
     axios
-      .post("https://wbs-simple-auth.herokuapp.com/auth/login", {
-        username: "ben",
-        password: "chicken",
-      })
+      .post("https://wbs-simple-auth.herokuapp.com/auth/login", loginData)
       .then((data) => {
         let token = data.headers["x-authorization-token"];
         if (token) {
           console.log("user is being logged in...");
           Cookies.set("Bwok-auth-token", token);
-          //setIsToken(true);
+          setIsToken(true);
+          history.push("/admin");
         }
       })
       .catch((err) => {

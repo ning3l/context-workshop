@@ -8,11 +8,12 @@ import Logout from "./Logout";
 import { Link, Route, Switch } from "react-router-dom";
 import CompanyContext from "./contexts/CompanyContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 const App = () => {
   const [infos, setInfos] = useState({
     name: "Bwok",
-    numCustomers: 10000,
+    numCustomers: "10000",
   });
 
   return (
@@ -38,14 +39,18 @@ const App = () => {
         <CompanyContext.Provider value={{ infos, setInfos }}>
           <AuthProvider>
             <Route path="/about" component={About} />
-            <Route path="/admin" component={Admin} />
+            <ProtectedRoute path="/admin" component={Admin} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/" component={Home} />
           </AuthProvider>
         </CompanyContext.Provider>
       </Switch>
-      {true && <Logout />}
+      {true && (
+        <AuthProvider>
+          <Logout />
+        </AuthProvider>
+      )}
     </div>
   );
 };
