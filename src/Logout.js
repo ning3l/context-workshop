@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "./contexts/AuthContext";
+import AuthContext from "./contexts/AuthContext";
 import Cookies from "js-cookie";
+import { useTranslation } from "./contexts/TranslationContext";
 
 const Logout = () => {
-  const { isToken, setIsToken } = useAuth();
+  const { isToken, setIsToken } = useContext(AuthContext);
+  const { lang } = useTranslation();
   const history = useHistory();
-
-  console.log("TOKEN from logout", isToken);
 
   return (
     <>
@@ -23,7 +23,7 @@ const Logout = () => {
           history.push("/signin");
         }}
       >
-        Logout
+        {lang.buttons.logout}
       </button>
     </>
   );

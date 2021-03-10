@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import Welcome from "./Welcome";
 import CompanyContext from "./contexts/CompanyContext";
+import { useTranslation } from "./contexts/TranslationContext";
 
 const Admin = () => {
-  const { setInfos } = useContext(CompanyContext);
+  const { infos, setInfos } = useContext(CompanyContext);
+  const { lang } = useTranslation();
   const [newCustomNum, setNewCustomNum] = useState();
 
   const handleChange = (e) => {
@@ -19,15 +21,16 @@ const Admin = () => {
 
   return (
     <>
-      <h3>Company name</h3>
+      <br></br>
+      <h3>{infos.name}</h3>
       <br />
-      <div>Admin Page</div>
+      <div>{lang.admin.location}</div>
       <br />
       <Welcome />
       <br />
-      <div>Lots of important secret stuff...</div>
+      <div>{lang.admin.main}</div>
       <input type="text" onChange={handleChange} />
-      <button onClick={handleUpdate}>update</button>
+      <button onClick={handleUpdate}>{lang.buttons.update}</button>
     </>
   );
 };

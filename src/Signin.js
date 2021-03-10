@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useAuth } from "./contexts/AuthContext";
+import AuthContext from "./contexts/AuthContext";
+import { useTranslation } from "./contexts/TranslationContext";
 
 const Signin = () => {
-  const { isToken, setIsToken } = useAuth();
+  const { isToken, setIsToken } = useContext(AuthContext);
+  const { lang } = useTranslation();
   const history = useHistory();
 
   const [loginData, setLoginData] = useState({
@@ -54,9 +56,9 @@ const Signin = () => {
         placeholder="Password"
         onChange={handleChange}
       />
-      <button onClick={() => login()}>Login</button>
+      <button onClick={() => login()}>{lang.buttons.login}</button>
       <br />
-      <Link to="/signup">Signup</Link>
+      <Link to="/signup">{lang.buttons.signup}</Link>
     </>
   );
 };

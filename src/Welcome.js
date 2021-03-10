@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import CompanyContext from "./contexts/CompanyContext";
+import { useTranslation } from "./contexts/TranslationContext";
 
 const Welcome = () => {
   const { infos } = useContext(CompanyContext);
-
-  console.log("Infooos", infos);
+  const { lang } = useTranslation();
 
   return (
     <>
       {infos && (
         <p>
-          Welcome to {infos.name}! {infos.numCustomers} customers served daily!
+          {lang.welcome} {infos.name}! {infos.numCustomers} {lang.greeting}!
         </p>
       )}
     </>
